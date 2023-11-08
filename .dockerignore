@@ -1,0 +1,9 @@
+.idea
+.git
+logs
+data
+jpt
+*.zip
+*.tgz
+*.tar
+*.tar.gz
