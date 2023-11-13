@@ -12,6 +12,7 @@ TODO
 ```bash
 conda create -n term_attr python=3.11
 conda activate term_attr
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
 pip install -r requirements.txt
 python app.py
 ```

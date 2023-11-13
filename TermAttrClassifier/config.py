@@ -1,0 +1,4 @@
+MODEL_PREDICT_RESULT_MAPPING = {
+    "LABEL_1": "CAN",
+    "LABEL_0": "CAN NOT",
+}
