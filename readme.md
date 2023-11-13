@@ -20,18 +20,17 @@ python app.py
 # Docker部署
 
 ```bash
-docker build -t term_attr .
+bash ./dockerfile/scissorfive-license-term-classifier/build_docker.sh
 
-docker rm -f term_attr
+docker rm -f license-term-attr-classifier
 
 docker run \
---name term_attr \
--p 8791:8555 \
+--name license-term-attr-classifier \
+-p 8792:8555 \
 -d --restart always \
--v $PWD/model_dir:/code/model_dir \
-term_attr:latest
+license-term-attr-classifier:latest
 
-docker logs -f -n 10 term_attr
+docker logs -f -n 10 license-term-attr-classifier
 ```
 
 ## 验证APP是否正常启动
@@ -39,11 +38,29 @@ docker logs -f -n 10 term_attr
 使用如下测试用例
 
 ```bash
-bash -xe ./shells/test_example/test_demo1.sh 127.0.0.1 8792
+bash -xe ./shells/test_example/test_demo1.sh
 ```
 
 应当看到类似如下JSON输出
 
 ```json
-
+{
+    "code": 0,
+    "data": [
+        {
+            "label": "CAN",
+            "score": 0.9999476671218872,
+            "name": "Use Patent Claims",
+            "text": "The Licensor grants to the Licensee royalty-free, non-exclusive usage rights to any patents held by the Licensor, to the extent necessary to make use of the rights granted on the Work under this Licence."
+        },
+        {
+            "label": "CAN NOT",
+            "score": 0.9999679327011108,
+            "name": "Use Trademark",
+            "text": "under intellectual property rights (other than patent or trademark) Licensable by Initial Developer"
+        }
+    ],
+    "msg": null,
+    "runtime": 0.04
+}
 ```

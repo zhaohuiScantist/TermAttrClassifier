@@ -1,0 +1,19 @@
+{
+    "code": 0,
+    "data": [
+        {
+            "label": "CAN",
+            "score": 0.9999476671218872,
+            "name": "Use Patent Claims",
+            "text": "The Licensor grants to the Licensee royalty-free, non-exclusive usage rights to any patents held by the Licensor, to the extent necessary to make use of the rights granted on the Work under this Licence."
+        },
+        {
+            "label": "CAN NOT",
+            "score": 0.9999679327011108,
+            "name": "Use Trademark",
+            "text": "under intellectual property rights (other than patent or trademark) Licensable by Initial Developer"
+        }
+    ],
+    "msg": null,
+    "runtime": 0.04
+}
