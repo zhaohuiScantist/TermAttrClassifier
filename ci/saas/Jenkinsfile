@@ -1,0 +1,39 @@
+library 'jenkins-shared-lib@main'
+
+pipeline {
+    agent {
+        label 'slave'
+    }
+
+    environment {
+        GOOGLE_CHAT_TOKEN = credentials('google-chat-release-deployment-token')
+    }
+    stages {
+        stage('Download model') {
+            steps {
+                prepareAssetsLicenseExtractor()
+                sh """
+                    unzip -o term_attr_bert_classifier_v1.0.0.zip
+                """
+            }
+        }
+
+        stage('Build dev image') {
+            steps {
+                dockerBuildPush('HWC', 'scantist-images/license-term-attr-classifier', 'dockerfile/scissorfive-license-term-classifier/Dockerfile', '', '.', "${env.BRANCH_NAME}")
+                pushHangoutsNotify("Build scissorfive-license-term-classifier image on branch ${env.BRANCH_NAME}")
+            }
+        }
+
+        stage('Build tag image') {
+            when {
+                tag 'v*'
+            }
+            steps {
+                dockerBuildPush('HWC', 'scantist-images/license_extractor', 'dockerfile/scissorfive-license-term-classifier/Dockerfile', '', '.', "${env.TAG_NAME}")
+                pushHangoutsNotify("Build scissorfive-license-term-classifier image on tag ${env.TAG_NAME}")
+            }
+
+        }
+    }
+}
